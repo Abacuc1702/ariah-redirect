@@ -1,0 +1,62 @@
+   <!DOCTYPE html>
+   <html>
+   <head>
+       <title>Redirection Ariah</title>
+       <meta name="viewport" content="width=device-width, initial-scale=1">
+       <meta name="theme-color" content="#FF6B00">
+       <style>
+           body {
+               margin: 0;
+               padding: 0;
+               font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+               background: #FF6B00;
+               color: white;
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               height: 100vh;
+           }
+           .loader {
+               text-align: center;
+           }
+           .spinner {
+               width: 40px;
+               height: 40px;
+               margin: 20px auto;
+               border: 4px solid rgba(255,255,255,0.3);
+               border-radius: 50%;
+               border-top-color: white;
+               animation: spin 1s ease-in-out infinite;
+           }
+           @keyframes spin {
+               to { transform: rotate(360deg); }
+           }
+       </style>
+       <script>
+           window.onload = function() {
+               const urlParams = new URLSearchParams(window.location.search);
+               const offerCode = urlParams.get('code');
+               
+               if (!offerCode) {
+                   document.getElementById('message').innerText = 'Code offre manquant';
+                   return;
+               }
+
+               window.location.href = `ariah://offre/${offerCode}`;
+               
+               setTimeout(() => {
+                   const isAndroid = /Android/i.test(navigator.userAgent);
+                   window.location.href = isAndroid 
+                       ? 'https://play.google.com/store/apps/details?id=com.sectester.ariah.app.ariah'
+                       : 'https://apps.apple.com/app/ariah/id6449749059';
+               }, 1500);
+           };
+       </script>
+   </head>
+   <body>
+       <div class="loader">
+           <div class="spinner"></div>
+           <div id="message">Redirection vers l'application...</div>
+       </div>
+   </body>
+   </html>
